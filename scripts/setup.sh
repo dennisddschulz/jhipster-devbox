@@ -99,6 +99,13 @@ apt-get install -y gnome-session-flashback
 # Install the development tools
 ################################################################################
 
+
+# install Intellij
+
+export INTELLIJ_VERSION='15.0.4'
+cd /opt && wget -O /tmp/intellij.tar.gz http://download.jetbrains.com/idea/ideaIC-${INTELLIJ_VERSION}.tar.gz && tar xfz /tmp/intellij.tar.gz
+
+
 # install Spring Tool Suite
 export STS_VERSION='3.7.2.RELEASE'
 
@@ -157,6 +164,7 @@ curl http://forge.jboss.org/sh | sh
 # create shortcuts
 mkdir /home/vagrant/Desktop
 ln -s /opt/sts-bundle/sts-${STS_VERSION}/STS /home/vagrant/Desktop/STS
+ln -s /opt/ideaIC-${INTELLIJ_VERSION}/idea /home/vagrant/Desktop/Intellij-Idea
 chown -R vagrant:vagrant /home/vagrant
 echo 'alias sts=/opt/sts-bundle/sts-${STS_VERSION}/STS' >> /home/vagrant/.bashrc
 
