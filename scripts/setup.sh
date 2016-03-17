@@ -23,6 +23,22 @@ export LC_ALL='en_US.UTF-8'
 export FORGE_HOME=~/forge/
 export PATH=$PATH:$FORGE_HOME/bin
 
+
+#Adding The Path Variables to ~/.bashrc
+if [ -f ~/.bashrc ];then
+{
+echo export JAVA_VERSION='8'
+echo export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
+echo export MAVEN_VERSION='3.3.9'
+echo export MAVEN_HOME='/usr/share/maven'
+echo export PATH=$PATH:$MAVEN_HOME/bin
+echo export LANGUAGE='en_US.UTF-8'
+echo export LANG='en_US.UTF-8'
+echo export LC_ALL='en_US.UTF-8'
+} >> ~/.bashrc
+fi
+
+
 locale-gen en_US.UTF-8
 dpkg-reconfigure locales
 
