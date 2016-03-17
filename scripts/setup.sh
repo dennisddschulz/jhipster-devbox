@@ -19,6 +19,10 @@ export PATH=$PATH:$MAVEN_HOME/bin
 export LANGUAGE='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
+
+export FORGE_HOME=~/forge/
+export PATH=$PATH:$FORGE_HOME/bin
+
 locale-gen en_US.UTF-8
 dpkg-reconfigure locales
 
@@ -129,6 +133,10 @@ mkdir -p /home/vagrant/.m2
 git clone https://github.com/jhipster/jhipster-travis-build /home/vagrant/jhipster-travis-build
 mv /home/vagrant/jhipster-travis-build/repository /home/vagrant/.m2/
 rm -Rf /home/vagrant/jhipster-travis-build
+
+
+# install forge
+curl http://forge.jboss.org/sh | sh
 
 # create shortcuts
 mkdir /home/vagrant/Desktop
