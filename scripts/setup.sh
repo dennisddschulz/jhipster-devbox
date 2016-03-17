@@ -159,12 +159,14 @@ git clone https://github.com/jhipster/jhipster-travis-build /home/vagrant/jhipst
 mv /home/vagrant/jhipster-travis-build/repository /home/vagrant/.m2/
 rm -Rf /home/vagrant/jhipster-travis-build
 
-
 # install forge
 curl http://forge.jboss.org/sh | sh
 
 # install forge angularjs addon
 forge -b -i angularjs
+
+# install jenkins CI
+cd /opt && wget https://updates.jenkins-ci.org/download/war/1.653/jenkins.war
 
 # create shortcuts
 mkdir /home/vagrant/Desktop
