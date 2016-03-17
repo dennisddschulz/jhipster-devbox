@@ -165,6 +165,12 @@ curl http://forge.jboss.org/sh | sh
 # install forge angularjs addon
 forge -b -i angularjs
 
+# install forge wildfly addon
+forge -b -i as
+forge -b -i jboss-as
+#addon-install-from-git --url https://github.com/forge/as-addon  --coordinate org.jboss.forge.addon:as
+#addon-install-from-git --url https://github.com/forge/jboss-as-addon  --coordinate org.jboss.forge.addon:jboss-as-wf
+
 # install jenkins CI
 cd /opt && wget https://updates.jenkins-ci.org/download/war/1.653/jenkins.war
 chmod 755 /opt/jenkins.war
