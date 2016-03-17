@@ -163,6 +163,9 @@ rm -Rf /home/vagrant/jhipster-travis-build
 # install forge
 curl http://forge.jboss.org/sh | sh
 
+# install forge angularjs addon
+forge -b -i angularjs
+
 # create shortcuts
 mkdir /home/vagrant/Desktop
 ln -s /opt/sts-bundle/sts-${STS_VERSION}/STS /home/vagrant/Desktop/STS
