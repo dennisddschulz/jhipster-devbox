@@ -167,6 +167,7 @@ forge -b -i angularjs
 
 # install jenkins CI
 cd /opt && wget https://updates.jenkins-ci.org/download/war/1.653/jenkins.war
+chmod 755 /opt/jenkins.war
 chown -R vagrant:vagrant /opt
 
 # create shortcuts
