@@ -20,7 +20,7 @@ export LANGUAGE='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
-export FORGE_HOME=~/forge/
+export FORGE_HOME='/home/vagrant/forge/'
 export PATH=$PATH:$FORGE_HOME/bin
 
 
@@ -178,19 +178,19 @@ rm -f /EMPTY
 
 
 #Adding The Path Variables to ~/.bashrc
-if [ -f ~/.bashrc ];then
+if [ -f /home/vagrant/.bashrc ];then
 {
 echo export JAVA_VERSION='8'
 echo export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
 echo export MAVEN_VERSION='3.3.9'
 echo export MAVEN_HOME='/usr/share/maven'
-echo export FORGE_HOME='~/forge/'
+echo export FORGE_HOME='home/vagrant/forge/'
 echo export PATH=$PATH:$FORGE_HOME/bin
 echo export PATH=$PATH:$MAVEN_HOME/bin
 echo export LANGUAGE='en_US.UTF-8'
 echo export LANG='en_US.UTF-8'
 echo export LC_ALL='en_US.UTF-8'
-} >> ~/.bashrc
+} >> /home/vagrant/.bashrc
 fi
 
 
