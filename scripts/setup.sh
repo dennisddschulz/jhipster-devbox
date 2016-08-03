@@ -9,7 +9,7 @@ apt-get upgrade
 # see https://github.com/jhipster/jhipster-docker/
 ################################################################################
 
-export ~='/home/vagrant'
+
 
 export JAVA_VERSION='8'
 export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
@@ -22,8 +22,15 @@ export LANGUAGE='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 
-export FORGE_HOME='/home/vagrant/forge/'
-export PATH=$PATH:$FORGE_HOME/bin
+export FORGE_VERSION='3.0.1'
+export FORGE_HOME=/home/vagrant/forge/forge-distribution-$FORGE_VERSION.Final
+
+
+
+#export PATH=$PATH:$FORGE_HOME/forge-distribution-3.0.1.Final/bin
+
+
+
 
 #Adding The Path Variables to ~/.bashrc
 if [ -f /home/vagrant/.bashrc ];then
@@ -32,8 +39,8 @@ echo export JAVA_VERSION='8'
 echo export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
 echo export MAVEN_VERSION='3.3.9'
 echo export MAVEN_HOME='/usr/share/maven'
-echo export FORGE_HOME='home/vagrant/forge/'
-echo export PATH=$PATH:$FORGE_HOME/bin
+echo export FORGE_VERSION='3.0.1'
+echo export FORGE_HOME=/home/vagrant/forge/forge-distribution-$FORGE_VERSION.Final
 echo export PATH=$PATH:$MAVEN_HOME/bin
 echo export LANGUAGE='en_US.UTF-8'
 echo export LANG='en_US.UTF-8'
@@ -89,7 +96,7 @@ echo 'LC_ALL=en_US.UTF-8' >> /etc/environment
 echo 'LC_CTYPE=en_US.UTF-8' >> /etc/environment
 
 # install languages
-apt-get install -y language-pack-fr
+apt-get install -y language-pack-de
 
 # run GUI as non-privileged user
 echo 'allowed_users=anybody' > /etc/X11/Xwrapper.config
@@ -105,7 +112,8 @@ apt-get install -y gnome-session-flashback
 
 # install Intellij
 
-export INTELLIJ_VERSION='15.0.4'
+export INTELLIJ_VERSION='2016.2'
+export INTELLIJ_FOLDER='idea-IC-162.1121.32'
 cd /opt && wget -O /tmp/intellij.tar.gz http://download.jetbrains.com/idea/ideaIC-${INTELLIJ_VERSION}.tar.gz && tar xfz /tmp/intellij.tar.gz
 
 
@@ -163,7 +171,38 @@ mv /home/vagrant/jhipster-travis-build/repository /home/vagrant/.m2/
 rm -Rf /home/vagrant/jhipster-travis-build
 
 # install forge
-curl http://forge.jboss.org/sh | sh
+# curl http://forge.jboss.org/sh | sh
+# extract from install script
+
+export INSTALL_DIR='/home/vagrant/forge'
+export INSTALLER_DIR='/home/vagrant/.forge'
+rm -rf $INSTALLER_DIR
+rm -rf $INSTALL_DIR
+mkdir $INSTALLER_DIR
+mkdir $INSTALL_DIR
+echo "Downloading Forge"
+#curl --location --fail --progress-bar https://oss.sonatype.org/service/local/artifact/maven/redirect\?r\=releases\&g\=org.jboss.forge\&a\=forge-distribution\&v\=LATEST\&e\=zip\&c\=offline > $INSTALLER_DIR/forge_installer.zip 
+curl --location --fail --progress-bar http://downloads.jboss.org/forge/releases/3.0.1.Final/forge-distribution-$FORGE_VERSION.Final-offline.zip > $INSTALLER_DIR/forge_installer.zip 
+test -f $INSTALLER_DIR/forge_installer.zip 
+unzip $INSTALLER_DIR/forge_installer.zip  -d $INSTALL_DIR
+rm -rf $INSTALLER_DIR
+test -x $INSTALL_DIR/forge-distribution-$FORGE_VERSION.Final
+echo 
+echo "FORGE has been installed inside the directory : "$ /home/vagrant/"forge."
+echo 
+
+export PATH=$PATH:$FORGE_HOME/bin
+
+
+
+#Adding The Path Variables to ~/.bashrc
+if [ -f /home/vagrant/.bashrc ];then
+{
+	echo export PATH=$PATH:$FORGE_HOME/bin
+} >> /home/vagrant/.bashrc
+fi
+
+
 
 # install forge angularjs addon
 forge -b -i angularjs
@@ -182,16 +221,20 @@ chown -R vagrant:vagrant /opt
 # create shortcuts
 mkdir /home/vagrant/Desktop
 ln -s /opt/sts-bundle/sts-${STS_VERSION}/STS /home/vagrant/Desktop/STS
-ln -s /opt/ideaIC-${INTELLIJ_VERSION}/idea /home/vagrant/Desktop/Intellij-Idea
+ln -s /opt/${INTELLIJ_FOLDER}/bin/idea.sh /home/vagrant/Desktop/Intellij-Idea
+chmod 755 /home/vagrant/Desktop/Intellij-Idea
 chown -R vagrant:vagrant /home/vagrant
 echo 'alias sts=/opt/sts-bundle/sts-${STS_VERSION}/STS' >> /home/vagrant/.bashrc
+
+# install dkms for oracle virtualbox addons
+sudo apt-get --assume-yes install build-essential linux-headers-`uname -r` dkms
 
 # clean the box
 apt-get clean
 dd if=/dev/zero of=/EMPTY bs=1M > /dev/null 2>&1
 rm -f /EMPTY
 
-
+shutdown -h now
 
 
 
